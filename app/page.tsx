@@ -804,16 +804,35 @@ export default function Home() {
       {compareOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setCompareOpen(false)}>
         <section className="compare-modal" role="dialog" aria-modal="true" aria-labelledby="compare-title">
           <header><div><span>اختر الأنسب لك</span><h2 id="compare-title">مقارنة القطارات</h2></div><button type="button" className="modal-close" onClick={() => setCompareOpen(false)} aria-label="إغلاق"><Icon name="close"/></button></header>
-          <div className="compare-table">
-            <div className="compare-labels"><span>القطار</span><span>الفئة</span><span>القيام</span><span>الوصول</span><span>المدة</span><span>المحطات البينية</span></div>
-            {compared.map((item) => <div className="compare-column" key={item.train.train_id}><strong>{item.train.train_number}</strong><span>{item.train.class_ar}</span><b>{toClock(item.departure)}</b><b>{toClock(item.arrival)}</b><span>{durationText(item.duration)}</span><span>{arNumber(item.intermediate)}</span></div>)}
+          <div className="compare-header-row">
+            {compared.map((item) => <div className="compare-train-id" key={item.train.train_id}><span>قطار رقم</span><strong>{item.train.train_number}</strong><small>{item.train.class_ar}</small></div>)}
+          </div>
+          <div className="compare-body">
+            {["القيام","الوصول","المدة","المحطات البينية","الفئة"].map((label,i) => {
+              const fastest = compared.reduce((b,x)=>x.duration<b.duration?x:b,compared[0]);
+              const earliest = compared.reduce((b,x)=>x.departure<b.departure?x:b,compared[0]);
+              const fewest = compared.reduce((b,x)=>x.intermediate<b.intermediate?x:b,compared[0]);
+              return <div className="compare-row" key={label} style={{gridTemplateColumns:`1fr ${compared.map(()=>"1fr").join(" ")}`}}>
+                <div className="compare-row-label">{label}</div>
+                {compared.map((item) => {
+                  let val = "";
+                  let best = false;
+                  if(i===0){val=toClock(item.departure);best=item===earliest;}
+                  else if(i===1){val=toClock(item.arrival);}
+                  else if(i===2){val=durationText(item.duration);best=item===fastest;}
+                  else if(i===3){val=arNumber(item.intermediate);best=item===fewest;}
+                  else{val=item.train.class_ar||"—";}
+                  return <div className="compare-cell" key={item.train.train_id}>{val}{best&&<span className="compare-badge-best" style={{marginRight:6}}>الأفضل</span>}</div>;
+                })}
+              </div>;
+            })}
           </div>
         </section>
       </div>}
 
-      {mobileMenu && <div className="mobile-drawer-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setMobileMenu(false)}><aside className="mobile-drawer"><div className="drawer-head"><span className="brand"><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>دليلك لقطارات مصر</small></span></span><button type="button" className="modal-close" onClick={() => setMobileMenu(false)}><Icon name="close"/></button></div><nav><a href="#top" onClick={() => setMobileMenu(false)}>الرئيسية</a><a href="#search" onClick={() => setMobileMenu(false)}>مواعيد القطارات</a><a href="#popular" onClick={() => setMobileMenu(false)}>الرحلات الشائعة</a><a href="#help" onClick={() => setMobileMenu(false)}>المساعدة</a></nav></aside></div>}
+      {mobileMenu && <div className="mobile-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setMobileMenu(false)}><aside className="mobile-drawer"><div className="mobile-drawer-header"><a className="brand" href="#top"><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>دليلك لقطارات مصر</small></span></a><button type="button" className="modal-close" onClick={() => setMobileMenu(false)} aria-label="إغلاق"><Icon name="close"/></button></div><nav><a href="#top" onClick={() => setMobileMenu(false)}>الرئيسية</a><a href="#search" onClick={() => setMobileMenu(false)}>مواعيد القطارات</a><a href="#popular" onClick={() => setMobileMenu(false)}>الرحلات الشائعة</a><a href="#help" onClick={() => setMobileMenu(false)}>المساعدة</a></nav></aside></div>}
 
-      <div className={toast ? "toast show" : "toast"}><Icon name="check" size={17}/>{toast}</div>
+      {toast && <div className="toast-wrapper"><div className="toast"><Icon name="check" size={17}/>{toast}</div></div>}
     </main>
   );
 }
