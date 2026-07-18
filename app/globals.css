@@ -1,24 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  --navy: #10243e;
-  --navy-2: #183753;
-  --navy-3: #071827;
-  --emerald: #087862;
-  --emerald-2: #0a9176;
-  --gold: #c89432;
-  --gold-soft: #f2dfb7;
-  --cream: #f8f4eb;
-  --cream-2: #f1eadc;
-  --surface: #ffffff;
-  --surface-2: #fbfaf7;
-  --text: #10243e;
-  --muted: #667085;
-  --muted-2: #8b94a4;
-  --border: #ded8cc;
-  --line: #e8e2d8;
-  --danger: #b42318;
-  --shadow-sm: 0 8px 28px rgba(23, 39, 55, 0.08);
-  --shadow-md: 0 18px 48px rgba(19, 38, 58, 0.13);
-  --shadow-lg: 0 32px 90px rgba(16, 36, 62, 0.2);
+  --navy: #0E1F38;
+  --navy-2: #162E4D;
+  --navy-3: #081324;
+  --emerald: #057A60;
+  --emerald-2: #099E7D;
+  --gold: #D49A2A;
+  --gold-soft: #F5E6C8;
+  --cream: #F9F6F0;
+  --cream-2: #F2ECDF;
+  --surface: #FFFFFF;
+  --surface-2: #FAF8F3;
+  --text: #0E1F38;
+  --muted: #5B687A;
+  --muted-2: #8492A6;
+  --border: #E2DBD0;
+  --line: #ECE5DA;
+  --danger: #D92D20;
+  --shadow-sm: 0 4px 16px rgba(14, 31, 56, 0.06);
+  --shadow-md: 0 12px 36px rgba(14, 31, 56, 0.1);
+  --shadow-lg: 0 24px 64px rgba(14, 31, 56, 0.16);
   --radius-sm: 12px;
   --radius: 18px;
   --radius-lg: 26px;
@@ -26,19 +28,20 @@
 }
 
 [data-theme="dark"] {
-  --cream: #071827;
-  --cream-2: #0b2033;
-  --surface: #10263a;
-  --surface-2: #0d2235;
-  --text: #eef4f4;
-  --muted: #a8b5c2;
-  --muted-2: #8795a5;
-  --border: #294157;
-  --line: #243c51;
-  --navy: #eef4f4;
-  --navy-2: #cbd9e3;
-  --shadow-sm: 0 8px 28px rgba(0, 0, 0, 0.18);
-  --shadow-md: 0 18px 48px rgba(0, 0, 0, 0.25);
+  --cream: #091524;
+  --cream-2: #0E1D30;
+  --surface: #12243A;
+  --surface-2: #0F1F33;
+  --text: #F1F5F9;
+  --muted: #94A3B8;
+  --muted-2: #64748B;
+  --border: #1E344D;
+  --line: #182C42;
+  --navy: #F1F5F9;
+  --navy-2: #CBD5E1;
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -55,7 +58,7 @@ body {
   min-width: 320px;
   background: var(--cream);
   color: var(--text);
-  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -465,6 +468,58 @@ svg {
 
 .field-control select {
   cursor: pointer;
+}
+
+.clear-field-button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--cream-2);
+  color: var(--muted);
+  transition: 0.2s ease;
+}
+
+.clear-field-button:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.field-label-row label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.date-presets {
+  display: flex;
+  gap: 4px;
+}
+
+.date-presets button {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--cream-2);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.date-presets button:hover,
+.date-presets button.active {
+  background: var(--emerald);
+  color: #fff;
 }
 
 .swap-button {

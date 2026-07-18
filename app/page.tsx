@@ -112,6 +112,13 @@ const todayValue = () => {
   return date.toISOString().slice(0, 10);
 };
 
+const getPresetDate = (daysAhead: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  return date.toISOString().slice(0, 10);
+};
+
 const toClock = (absolute: number) => {
   const minute = ((Number(absolute) % 1440) + 1440) % 1440;
   return `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
@@ -230,6 +237,20 @@ function StationPicker({
             }
           }}
         />
+        {(value || draft) && (
+          <button
+            type="button"
+            className="clear-field-button"
+            title="مسح المحطة"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              setDraft("");
+              onChange(null);
+            }}
+          >
+            <Icon name="close" size={14} />
+          </button>
+        )}
       </div>
       {open && (
         <div className="suggestions" id={listId} role="listbox">
@@ -620,7 +641,19 @@ export default function Home() {
 
             {index && (
               <div className="search-options">
-                {mode !== "number" && <div className="field compact"><label htmlFor="trip-date">تاريخ السفر</label><div className="field-control"><Icon name="calendar"/><input id="trip-date" type="date" min={todayValue()} value={date} onChange={(event) => setDate(event.target.value)}/></div></div>}
+                {mode !== "number" && (
+                  <div className="field compact date-field-container">
+                    <div className="field-label-row">
+                      <label htmlFor="trip-date">تاريخ السفر</label>
+                      <div className="date-presets">
+                        <button type="button" className={date === getPresetDate(0) ? "active" : ""} onClick={() => setDate(getPresetDate(0))}>اليوم</button>
+                        <button type="button" className={date === getPresetDate(1) ? "active" : ""} onClick={() => setDate(getPresetDate(1))}>غداً</button>
+                        <button type="button" className={date === getPresetDate(2) ? "active" : ""} onClick={() => setDate(getPresetDate(2))}>بعد غد</button>
+                      </div>
+                    </div>
+                    <div className="field-control"><Icon name="calendar"/><input id="trip-date" type="date" min={todayValue()} value={date} onChange={(event) => setDate(event.target.value)}/></div>
+                  </div>
+                )}
                 <div className="field compact"><label htmlFor="time-period">وقت التحرك</label><div className="field-control"><Icon name="clock"/><select id="time-period" value={period} onChange={(event) => setPeriod(event.target.value)}><option value="">كل الأوقات</option><option value="morning">صباحًا 4–12</option><option value="afternoon">ظهرًا 12–5</option><option value="evening">مساءً 5–9</option><option value="night">ليلًا 9–4</option></select></div></div>
                 <div className="field compact"><label htmlFor="train-class">فئة القطار</label><div className="field-control"><Icon name="train"/><select id="train-class" value={trainClass} onChange={(event) => setTrainClass(event.target.value)}><option value="">كل الفئات</option>{index.classes.map((name) => <option key={name}>{name}</option>)}</select></div></div>
               </div>
