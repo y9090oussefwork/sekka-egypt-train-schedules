@@ -430,7 +430,7 @@ nav[aria-label="القائمة الرئيسية"] a.active {
   width: 100%;
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 440px;
+  grid-template-columns: 1fr 580px;
   gap: 48px;
   align-items: center;
 }
@@ -606,7 +606,7 @@ nav[aria-label="القائمة الرئيسية"] a.active {
 .route-fields {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 8px;
+  gap: 12px;
   padding: 16px;
   align-items: end;
 }
@@ -788,8 +788,8 @@ nav[aria-label="القائمة الرئيسية"] a.active {
 /* ── Search options (date / time / class) ────────────── */
 .search-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 12px;
   padding: 0 16px 16px;
 }
 
@@ -2490,7 +2490,7 @@ footer {
     gap: 36px;
   }
 
-  .search-card { max-width: 560px; width: 100%; }
+  .search-card { max-width: 600px; width: 100%; }
 
   .stats-section { grid-template-columns: 1fr; gap: 28px; padding: 36px; }
   .stats-grid { grid-template-columns: repeat(4, 1fr); }
