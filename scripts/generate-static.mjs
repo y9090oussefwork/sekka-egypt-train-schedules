@@ -33,7 +33,8 @@ async function generate() {
   const clientDir = path.resolve(process.cwd(), "dist/client");
   fs.writeFileSync(path.join(clientDir, "index.html"), html, "utf-8");
   fs.writeFileSync(path.join(clientDir, "404.html"), html, "utf-8");
-  console.log(`Successfully generated relative static HTML (${html.length} bytes)`);
+  fs.writeFileSync(path.join(clientDir, ".nojekyll"), "# disable jekyll\n", "utf-8");
+  console.log(`Successfully generated relative static HTML (${html.length} bytes) & .nojekyll`);
 }
 
 generate().catch((err) => {

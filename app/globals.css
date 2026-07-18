@@ -246,7 +246,7 @@ svg {
   position: absolute;
   z-index: 0;
   inset: 0;
-  background-image: url("/hero-train.png");
+  background-image: url("hero-train.png");
   background-position: left center;
   background-size: cover;
   opacity: 0.98;
