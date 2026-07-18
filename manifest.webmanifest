@@ -1,0 +1,19 @@
+{
+  "name": "سِكّة - مواعيد قطارات مصر",
+  "short_name": "سِكّة",
+  "description": "بحث ومقارنة مواعيد القطارات بين جميع محطات مصر",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f4eb",
+  "theme_color": "#087862",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
