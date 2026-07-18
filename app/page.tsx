@@ -293,15 +293,15 @@ export default function Home() {
   const resultsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    fetch("/data/train_data.json")
+    fetch("data/train_data.json")
       .then((response) => {
-        if (!response.ok) throw new Error("data");
+        if (!response.ok) return fetch("/data/train_data.json").then((res) => res.json());
         return response.json();
       })
       .then((payload: TrainData) => setData(payload))
       .catch(() => setLoadError(true));
 
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => undefined);
   }, []);
 
   useEffect(() => {
