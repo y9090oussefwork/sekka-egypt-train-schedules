@@ -559,21 +559,32 @@ export default function Home() {
     window.setTimeout(() => searchRoute(source, destination), 0);
   };
 
+  const scrollToAnchor = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -80; // matches header height + padding
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      history.pushState(null, "", `#${id}`);
+    }
+  };
+
   const compared = sortedResults.filter((item) => compareIds.has(Number(item.train.train_id)));
 
   return (
     <main>
       <header className="site-header">
         <div className="header-inner">
-          <a className="brand" href="#top" aria-label="سِكّة - الرئيسية">
+          <a className="brand" href="#top" onClick={(e) => scrollToAnchor(e, "top")} aria-label="سِكّة - الرئيسية">
             <span className="brand-mark"><i></i><i></i><i></i></span>
             <span><strong>سِكّة</strong><small>دليلك لقطارات مصر</small></span>
           </a>
           <nav aria-label="القائمة الرئيسية">
-            <a className="active" href="#top">الرئيسية</a>
-            <a href="#search">مواعيد القطارات</a>
-            <a href="#popular">الرحلات الشائعة</a>
-            <a href="#help">المساعدة</a>
+            <a className="active" href="#top" onClick={(e) => scrollToAnchor(e, "top")}>الرئيسية</a>
+            <a href="#search" onClick={(e) => scrollToAnchor(e, "search")}>مواعيد القطارات</a>
+            <a href="#popular" onClick={(e) => scrollToAnchor(e, "popular")}>الرحلات الشائعة</a>
+            <a href="#help" onClick={(e) => scrollToAnchor(e, "help")}>المساعدة</a>
           </nav>
           <div className="header-actions">
             <button className="icon-button" type="button" onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label="تغيير مظهر الموقع">
@@ -776,9 +787,9 @@ export default function Home() {
 
       <footer>
         <div className="footer-main">
-          <a className="brand footer-brand" href="#top"><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>رحلتك أوضح وأسهل</small></span></a>
+          <a className="brand footer-brand" href="#top" onClick={(e) => scrollToAnchor(e, "top")}><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>رحلتك أوضح وأسهل</small></span></a>
           <p>دليل مستقل لعرض جداول القطارات المخزنة. المواعيد قابلة للتغيير ويجب تأكيدها من الجهة الرسمية قبل السفر.</p>
-          <div><a href="#search">البحث</a><a href="#popular">الرحلات الشائعة</a><a href="#help">المساعدة</a></div>
+          <div><a href="#search" onClick={(e) => scrollToAnchor(e, "search")}>البحث</a><a href="#popular" onClick={(e) => scrollToAnchor(e, "popular")}>الرحلات الشائعة</a><a href="#help" onClick={(e) => scrollToAnchor(e, "help")}>المساعدة</a></div>
         </div>
         <div className="footer-bottom"><span>آخر تحديث للبيانات: {data?.metadata.database_date ?? "جارٍ التحميل"}</span><span>صُمّم بعناية للمسافر المصري</span></div>
       </footer>
@@ -830,7 +841,7 @@ export default function Home() {
         </section>
       </div>}
 
-      {mobileMenu && <div className="mobile-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setMobileMenu(false)}><aside className="mobile-drawer"><div className="mobile-drawer-header"><a className="brand" href="#top"><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>دليلك لقطارات مصر</small></span></a><button type="button" className="modal-close" onClick={() => setMobileMenu(false)} aria-label="إغلاق"><Icon name="close"/></button></div><nav><a href="#top" onClick={() => setMobileMenu(false)}>الرئيسية</a><a href="#search" onClick={() => setMobileMenu(false)}>مواعيد القطارات</a><a href="#popular" onClick={() => setMobileMenu(false)}>الرحلات الشائعة</a><a href="#help" onClick={() => setMobileMenu(false)}>المساعدة</a></nav></aside></div>}
+      {mobileMenu && <div className="mobile-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setMobileMenu(false)}><aside className="mobile-drawer"><div className="mobile-drawer-header"><a className="brand" href="#top" onClick={(e) => { setMobileMenu(false); scrollToAnchor(e, "top"); }}><span className="brand-mark"><i></i><i></i><i></i></span><span><strong>سِكّة</strong><small>دليلك لقطارات مصر</small></span></a><button type="button" className="modal-close" onClick={() => setMobileMenu(false)} aria-label="إغلاق"><Icon name="close"/></button></div><nav><a href="#top" onClick={(e) => { setMobileMenu(false); scrollToAnchor(e, "top"); }}>الرئيسية</a><a href="#search" onClick={(e) => { setMobileMenu(false); scrollToAnchor(e, "search"); }}>مواعيد القطارات</a><a href="#popular" onClick={(e) => { setMobileMenu(false); scrollToAnchor(e, "popular"); }}>الرحلات الشائعة</a><a href="#help" onClick={(e) => { setMobileMenu(false); scrollToAnchor(e, "help"); }}>المساعدة</a></nav></aside></div>}
 
       {toast && <div className="toast-wrapper"><div className="toast"><Icon name="check" size={17}/>{toast}</div></div>}
     </main>
