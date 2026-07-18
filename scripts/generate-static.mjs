@@ -34,6 +34,13 @@ async function generate() {
   fs.writeFileSync(path.join(clientDir, "index.html"), html, "utf-8");
   fs.writeFileSync(path.join(clientDir, "404.html"), html, "utf-8");
   fs.writeFileSync(path.join(clientDir, ".nojekyll"), "# disable jekyll\n", "utf-8");
+
+  // Copy hero-train.png to assets folder so relative CSS url("hero-train.png") and url("../hero-train.png") both work
+  const heroSrc = path.join(clientDir, "hero-train.png");
+  if (fs.existsSync(heroSrc)) {
+    fs.copyFileSync(heroSrc, path.join(clientDir, "assets", "hero-train.png"));
+  }
+
   console.log(`Successfully generated relative static HTML (${html.length} bytes) & .nojekyll`);
 }
 
