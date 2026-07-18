@@ -8,7 +8,7 @@
 
 ## 🔗 رابط التجربة الحية (Live Demo)
 يمكنك تجربة التطبيق مباشرة عبر الرابط التالي:  
-👉 **[https://sekka-egypt-train-schedules.vercel.app](https://sekka-egypt-train-schedules.vercel.app)**
+👉 **[https://y9090oussefwork.github.io/sekka-egypt-train-schedules/](https://y9090oussefwork.github.io/sekka-egypt-train-schedules/)**
 
 ---
 
